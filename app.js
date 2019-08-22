@@ -3,12 +3,12 @@ const session = require('express-session');
 const bodyParser = require('body-parser');
 const Keycloak = require('keycloak-connect');
 const keycloakConfig = require('./public/keycloak');
-//const cors = require('cors');
+const cors = require('cors');
 const path = require('path');
 
 const app = express();
 app.use(bodyParser.json());
-//app.use(cors());
+app.use(cors());
 app.use(express.static(path.join(__dirname, 'public')));
 
 const memoryStore = new session.MemoryStore();
@@ -46,11 +46,11 @@ function checkRoles(roles) {
 }
 
 app.get('/private/mage-spells', keycloak.protect(checkRoles(['mage'])), function (req, res) {
-    res.send(['fire ball', 'frost bolt', 'arcane missiles']);
+    res.send(['fireball', 'frostbolt', 'arcane missiles']);
 });
 
 app.get('/private/warlock-spells', keycloak.protect(checkRoles(['warlock'])), function (req, res) {
-    res.send(['shadow bolt', 'corruption', 'immolate']);
+    res.send(['shadowbolt', 'corruption', 'immolate']);
 });
 
 app.listen(3000);
