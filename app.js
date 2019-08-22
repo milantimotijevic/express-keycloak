@@ -24,7 +24,7 @@ const keycloak = new Keycloak({
     store: memoryStore
 }, keycloakConfig);
 
-app.use(keycloak.middleware({
+app.use(keycloak.middleware({ // TODO look into what these options actually do, because stuff works without them...
     logout: '/logout',
     admin: '/'
 }));
